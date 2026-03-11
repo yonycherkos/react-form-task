@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ProjectName from '../componenets/ProjectName';
 import GwasFile from '../componenets/GwasFile';
+import Phenotype from '../componenets/PhenoType';
 import '../styles/App.css';
 
 const FormPage = () => {
@@ -65,7 +66,12 @@ const FormPage = () => {
           </div>
 
           <div className="form-section">
-            {step === 1 ? (
+            {step === 0 ? (
+              <ProjectName
+                projectName={formData.projectName}
+                handleChange={handleChange}
+              />
+            ) : step === 1 ? (
               <GwasFile
                 gwasSourceType={gwasSourceType}
                 handleGwasSourceType={(type: 'library' | 'upload') => {
@@ -82,11 +88,15 @@ const FormPage = () => {
                   }))
                 }
               />
-            ) : (
-              <ProjectName
-                projectName={formData.projectName}
-                handleChange={handleChange}
+            ) : step === 2 ? (
+              <Phenotype
+                value={formData.phenotype}
+                onChange={(phenotype) =>
+                  setFormData((prev) => ({ ...prev, phenotype }))
+                }
               />
+            ) : (
+              <div className="field-label">Population (coming soon)</div>
             )}
 
             <div className="form-actions">

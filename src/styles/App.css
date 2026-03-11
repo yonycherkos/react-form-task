@@ -196,6 +196,88 @@
   cursor: pointer;
 }
 
+/* Phenotype dropdown */
+.phenotype-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 75%;
+  min-width: 200px;
+  padding: 10px 16px;
+  font-size: 14px;
+  text-align: left;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.phenotype-trigger:hover {
+  border-color: #9ca3af;
+}
+
+.phenotype-placeholder {
+  color: #9ca3af;
+}
+
+.phenotype-chevron {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: #6b7280;
+  margin-left: 8px;
+}
+
+.phenotype-modal {
+  width: 400px;
+}
+
+.modal-list-wrap {
+  margin: 16px 20px;
+  max-height: 280px;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 200px;
+}
+
+.phenotype-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 14px;
+  color: #111827;
+  background: #fff;
+  border: none;
+  border-bottom: 1px solid #f3f4f6;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.phenotype-option input {
+  margin: 0;
+}
+
+.phenotype-option--active {
+  background: #f3f4f6;
+}
+
+.phenotype-option:hover {
+  background: #f3f4f6;
+}
+
+.phenotype-option:last-child {
+  border-bottom: none;
+}
+
+.phenotype-option:hover {
+  background: #f3f4f6;
+}
+
 /* Modal */
 .modal-overlay {
   position: fixed;
