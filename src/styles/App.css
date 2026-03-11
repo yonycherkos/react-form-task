@@ -1,38 +1,145 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+/* Layout */
+.form {
   min-height: 100vh;
+  margin: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 40px 16px;
+  background-color: #f5f5f5;
 }
 
-.App-link {
-  color: #61dafb;
+.form-card {
+  width: 800px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  padding: 32px 36px 28px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Header */
+.form-header {
+  margin-bottom: 24px;
 }
+
+.form-title {
+  margin: 0 0 4px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.form-subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Stepper */
+.form-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-stepper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.stepper-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.stepper-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  font-size: 13px;
+}
+
+.stepper-label {
+  white-space: nowrap;
+}
+
+.stepper-item-active {
+  color: #111827;
+}
+
+.stepper-item-active .stepper-circle {
+  background: #111827;
+  color: #fff;
+  border-color: #111827;
+}
+
+/* Form fields */
+.form-section {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.field-input {
+  width: 75%;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  padding: 10px 16px;
+  font-size: 14px;
+  outline: none;
+}
+
+.field-input::placeholder {
+  color: #9ca3af;
+}
+
+/* Actions */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.btn {
+  display: inline-flex;
+  width: 160px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #111827;
+  color: #fff;
+}
+
+/* @media (max-width: 640px) {
+  .form-card {
+    padding: 24px 20px 20px;
+  }
+  .form-stepper {
+    gap: 10px;
+  }
+} */
