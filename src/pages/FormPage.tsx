@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ProjectName from '../componenets/ProjectName';
 import GwasFile from '../componenets/GwasFile';
 import Phenotype from '../componenets/PhenoType';
+import Population from '../componenets/Population';
 import '../styles/App.css';
 
 const FormPage = () => {
@@ -36,6 +37,57 @@ const FormPage = () => {
     }
   };
 
+  const buildStepsContent = () => {
+    switch (step) {
+      case 0:
+        return (
+          <ProjectName
+            projectName={formData.projectName}
+            handleChange={handleChange}
+          />
+        );
+      case 1:
+        return (
+          <GwasFile
+            gwasSourceType={gwasSourceType}
+            handleGwasSourceType={(type: 'library' | 'upload') => {
+              setGwasSourceType(type);
+            }}
+            gwasFile={formData.gwasFile || ''}
+            onSelectFromLibrary={(name) =>
+              setFormData((prev) => ({ ...prev, gwasFile: name }))
+            }
+            onUploadFile={(file) =>
+              setFormData((prev) => ({
+                ...prev,
+                gwasFile: file?.name ?? '',
+              }))
+            }
+          />
+        );
+      case 2:
+        return (
+          <Phenotype
+            value={formData.phenotype}
+            onChange={(phenotype) =>
+              setFormData((prev) => ({ ...prev, phenotype }))
+            }
+          />
+        );
+      case 3:
+        return (
+          <Population
+            population={formData.population}
+            onChange={(population) =>
+              setFormData((prev) => ({ ...prev, population }))
+            }
+          />
+        );
+      default:
+        return <div className="field-label">Unimplemented step</div>;
+    }
+  };
+
   const stepperItems = [
     'Project name',
     'GWAS file selection',
@@ -66,38 +118,7 @@ const FormPage = () => {
           </div>
 
           <div className="form-section">
-            {step === 0 ? (
-              <ProjectName
-                projectName={formData.projectName}
-                handleChange={handleChange}
-              />
-            ) : step === 1 ? (
-              <GwasFile
-                gwasSourceType={gwasSourceType}
-                handleGwasSourceType={(type: 'library' | 'upload') => {
-                  setGwasSourceType(type);
-                }}
-                gwasFile={formData.gwasFile || ''}
-                onSelectFromLibrary={(name) =>
-                  setFormData((prev) => ({ ...prev, gwasFile: name }))
-                }
-                onUploadFile={(file) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    gwasFile: file?.name ?? '',
-                  }))
-                }
-              />
-            ) : step === 2 ? (
-              <Phenotype
-                value={formData.phenotype}
-                onChange={(phenotype) =>
-                  setFormData((prev) => ({ ...prev, phenotype }))
-                }
-              />
-            ) : (
-              <div className="field-label">Population (coming soon)</div>
-            )}
+            {buildStepsContent()}
 
             <div className="form-actions">
               {step > 0 ? (

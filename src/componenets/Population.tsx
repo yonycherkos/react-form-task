@@ -1,9 +1,37 @@
-import React from 'react'
+const Population = ({
+  population,
+  onChange,
+}: {
+  population: string;
+  onChange: (population: string) => void;
+}) => {
+  const populationOptions = [
+    'African',
+    'European',
+    'East Asian',
+    'South Asian',
+    'Native American',
+  ];
 
-const Population = () => {
   return (
-    <div>Population</div>
-  )
-}
+    <>
+      <div className="field-label">Population Category</div>
+      <div className="population-options">
+        {populationOptions.map((option) => (
+          <label className="population-option" key={option}>
+            <input
+              type="radio"
+              name="population"
+              value={option}
+              checked={population === option}
+              onChange={() => onChange(option)}
+            />
+            {option}
+          </label>
+        ))}
+      </div>
+    </>
+  );
+};
 
-export default Population
+export default Population;
