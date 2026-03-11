@@ -1,9 +1,27 @@
-import React from 'react'
+import React from 'react';
 
-const ProjectName = () => {
+const ProjectName = ({
+  projectName,
+  handleChange,
+}: {
+  projectName: string;
+  handleChange: (e: any) => void;
+}) => {
   return (
-    <div>ProjectName</div>
-  )
-}
+    <>
+      <div className="field-label">Project Name</div>
+      <input
+        id="project-name"
+        name="projectName"
+        type="text"
+        placeholder="Ex. Genetic Association of Schizophrenia in Europe"
+        className="field-input"
+        value={projectName}
+        onChange={handleChange}
+        required
+      />
+    </>
+  );
+};
 
-export default ProjectName
+export default ProjectName;

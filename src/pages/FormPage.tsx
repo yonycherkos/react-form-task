@@ -1,41 +1,46 @@
-import React, {useState} from 'react';
+import { useState } from 'react';
+import ProjectName from '../componenets/ProjectName';
+import GwasFile from '../componenets/GwasFile';
 import '../styles/App.css';
 
 const FormPage = () => {
+  const [step, setStep] = useState(0);
 
-    const [step, setStep] = useState(0);
+  const [formData, setFormData] = useState({
+    projectName: '',
+    gwasFile: '',
+    phenotype: '',
+    population: '',
+  });
 
-    const [formData, setFormData] = useState({
-        projectName: '',
-        gwasSource: '',
-        phenotype: '',
-        population: '',
-    });
+  const [gwasSourceType, setGwasSourceType] = useState<'library' | 'upload'>(
+    'library',
+  );
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+  const handleChange = (e: any) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-    const handleNext = () => {
-        if (step < 3) {
-            setStep(step + 1);
-        } else {
-            console.log('Submit');
-        }
-    };
+  const handleNext = () => {
+    if (step < 3) {
+      setStep(step + 1);
+    } else {
+      console.log('Submit');
+    }
+  };
 
-    const handlePrevious = () => {
-        if (step > 0) {
-            setStep(step - 1);
-        }
-    };
+  const handlePrevious = () => {
+    if (step > 0) {
+      setStep(step - 1);
+    }
+  };
 
-    const stepperItems = [
-        'Project name',
-        'GWAS file source',
-        'Phenotype',
-        'Population Category',
-    ]
+  const stepperItems = [
+    'Project name',
+    'GWAS file selection',
+    'Phenotype',
+    'Population Category',
+  ];
 
   return (
     <main className="form">
@@ -49,44 +54,62 @@ const FormPage = () => {
 
         <div className="form-layout">
           <div className="form-stepper">
-            {
-                stepperItems.map((item, index) => (
-                    <div className={`stepper-item ${step === index ? 'stepper-item-active' : ''}`}>
-                        <span className="stepper-circle">{index + 1}</span>
-                        <span className="stepper-label">{item}</span>
-                    </div>
-                ))
-            }
+            {stepperItems.map((item, index) => (
+              <div
+                className={`stepper-item ${step === index ? 'stepper-item-active' : ''}`}
+              >
+                <span className="stepper-circle">{index + 1}</span>
+                <span className="stepper-label">{item}</span>
+              </div>
+            ))}
           </div>
 
-          <section className="form-section">
-            <label className="field-label" htmlFor="project-name">
-              Project name
-            </label>
-            <input
-              id="project-name"
-              name="projectName"
-              type="text"
-              placeholder="Ex. Genetic Association of Schizophrenia in Europe"
-              className="field-input"
-              value={formData.projectName}
-              onChange={handleChange}
-              required
-            />
+          <div className="form-section">
+            {step === 1 ? (
+              <GwasFile
+                gwasSourceType={gwasSourceType}
+                handleGwasSourceType={(type: 'library' | 'upload') => {
+                  setGwasSourceType(type);
+                }}
+                gwasFile={formData.gwasFile || ''}
+                onSelectFromLibrary={(name) =>
+                  setFormData((prev) => ({ ...prev, gwasFile: name }))
+                }
+                onUploadFile={(file) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    gwasFile: file?.name ?? '',
+                  }))
+                }
+              />
+            ) : (
+              <ProjectName
+                projectName={formData.projectName}
+                handleChange={handleChange}
+              />
+            )}
 
             <div className="form-actions">
-                {
-                    step > 0 ? (
-                        <button type="button" className="btn btn-secondary" onClick={handlePrevious}>
-                            Previous
-                        </button>
-                    ) : <div></div>
-                }
-              <button type="button" className="btn btn-primary" onClick={handleNext}>
+              {step > 0 ? (
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={handlePrevious}
+                >
+                  Previous
+                </button>
+              ) : (
+                <div></div>
+              )}
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleNext}
+              >
                 {step === 3 ? 'Submit' : 'Next'}
               </button>
             </div>
-          </section>
+          </div>
         </div>
       </section>
     </main>
