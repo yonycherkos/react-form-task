@@ -22,19 +22,22 @@ const GwasFileModal = ({
 
   useEffect(() => {
     if (!open) return;
-    setLoading(true);
-    fetchGwasFiles(search)
-      .then(({ items, total: t }) => {
-        setFiles(items);
-        setTotal(t);
-        setSelectedId(null);
-      })
-      .catch((e) => {
-        console.error(e);
-        setFiles([]);
-        setTotal(0);
-      })
-      .finally(() => setLoading(false));
+    const timer = setTimeout(() => {
+      setLoading(true);
+      fetchGwasFiles(search)
+        .then(({ items, total: t }) => {
+          setFiles(items);
+          setTotal(t);
+          setSelectedId(null);
+        })
+        .catch((e) => {
+          console.error(e);
+          setFiles([]);
+          setTotal(0);
+        })
+        .finally(() => setLoading(false));
+    }, 300);
+    return () => clearTimeout(timer);
   }, [open, search]);
 
   const handleSelect = () => {

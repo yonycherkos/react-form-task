@@ -22,20 +22,23 @@ const PhenoTypeModal = ({
 
   useEffect(() => {
     if (!open) return;
-    setLoading(true);
-    fetchPhenotypes(search)
-      .then((res) => {
-        const items = Array.isArray(res.items) ? res.items : [];
-        setOptions(items);
-        setTotal(typeof res.total === 'number' ? res.total : items.length);
-        setSelectedId(null);
-      })
-      .catch((e) => {
-        console.error(e);
-        setOptions([]);
-        setTotal(0);
-      })
-      .finally(() => setLoading(false));
+    const timer = setTimeout(() => {
+      setLoading(true);
+      fetchPhenotypes(search)
+        .then((res) => {
+          const items = Array.isArray(res.items) ? res.items : [];
+          setOptions(items);
+          setTotal(typeof res.total === 'number' ? res.total : items.length);
+          setSelectedId(null);
+        })
+        .catch((e) => {
+          console.error(e);
+          setOptions([]);
+          setTotal(0);
+        })
+        .finally(() => setLoading(false));
+    }, 300);
+    return () => clearTimeout(timer);
   }, [open, search]);
 
   const handleSelect = () => {
