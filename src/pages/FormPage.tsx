@@ -27,7 +27,7 @@ const FormPage = () => {
     if (step < 3) {
       setStep(step + 1);
     } else {
-      console.log('Submit');
+      console.log('formData: ', formData);
     }
   };
 
@@ -35,6 +35,16 @@ const FormPage = () => {
     if (step > 0) {
       setStep(step - 1);
     }
+  };
+
+  const isCurrentStepValid = () => {
+    const fields = [
+      formData.projectName,
+      formData.gwasFile,
+      formData.phenotype,
+      formData.population,
+    ];
+    return fields[step]?.trim() !== '';
   };
 
   const buildStepsContent = () => {
@@ -136,6 +146,7 @@ const FormPage = () => {
                 type="button"
                 className="btn btn-primary"
                 onClick={handleNext}
+                disabled={!isCurrentStepValid()}
               >
                 {step === 3 ? 'Submit' : 'Next'}
               </button>
