@@ -4,12 +4,14 @@ import GwasFileModal from './GwasFileModal';
 const GwasFile = ({
   gwasSourceType,
   gwasFile,
+  gwasFileSourceType,
   handleGwasSourceType,
   onSelectFromLibrary,
   onUploadFile,
 }: {
   gwasSourceType: 'library' | 'upload';
   gwasFile: string;
+  gwasFileSourceType: 'library' | 'upload' | null;
   handleGwasSourceType: (type: 'library' | 'upload') => void;
   onSelectFromLibrary: (displayName: string) => void;
   onUploadFile: (file: File | null) => void;
@@ -43,7 +45,11 @@ const GwasFile = ({
         </button>
       </div>
       <div className="gwas-file-display">
-        <span>{gwasFile || 'No file selected.'}</span>
+        <span>
+          {gwasFile && gwasFileSourceType === gwasSourceType
+            ? gwasFile
+            : 'No file selected.'}
+        </span>
         {gwasSourceType === 'library' && (
           <button
             type="button"

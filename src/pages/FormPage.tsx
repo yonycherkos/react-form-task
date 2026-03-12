@@ -19,6 +19,10 @@ const FormPage = () => {
     'library',
   );
 
+  const [gwasFileSourceType, setGwasFileSourceType] = useState<
+    'library' | 'upload' | null
+  >(null);
+
   const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -60,19 +64,22 @@ const FormPage = () => {
         return (
           <GwasFile
             gwasSourceType={gwasSourceType}
+            gwasFile={formData.gwasFile || ''}
+            gwasFileSourceType={gwasFileSourceType}
             handleGwasSourceType={(type: 'library' | 'upload') => {
               setGwasSourceType(type);
             }}
-            gwasFile={formData.gwasFile || ''}
-            onSelectFromLibrary={(name) =>
-              setFormData((prev) => ({ ...prev, gwasFile: name }))
-            }
-            onUploadFile={(file) =>
+            onSelectFromLibrary={(name) => {
+              setFormData((prev) => ({ ...prev, gwasFile: name }));
+              setGwasFileSourceType('library');
+            }}
+            onUploadFile={(file) => {
               setFormData((prev) => ({
                 ...prev,
                 gwasFile: file?.name ?? '',
-              }))
-            }
+              }));
+              setGwasFileSourceType('upload');
+            }}
           />
         );
       case 2:
@@ -119,6 +126,7 @@ const FormPage = () => {
           <div className="form-stepper">
             {stepperItems.map((item, index) => (
               <div
+                key={index}
                 className={`stepper-item ${step === index ? 'stepper-item-active' : ''}`}
               >
                 <span className="stepper-circle">{index + 1}</span>
