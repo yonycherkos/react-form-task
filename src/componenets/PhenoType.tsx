@@ -21,7 +21,7 @@ const PhenoType = ({
         <span className={value ? '' : 'phenotype-placeholder'}>
           {value || 'Select option...'}
         </span>
-        <div className="phenotype-chevron">&#9660;</div>
+        <div className="phenotype-dropdown">&#9660;</div>
       </button>
       <PhenoTypeModal
         open={modalOpen}

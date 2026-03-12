@@ -113,16 +113,16 @@ const FormPage = () => {
   ];
 
   return (
-    <main className="form">
-      <section className="form-card">
-        <header className="form-header">
-          <h1 className="form-title">Create hypothesis project</h1>
-          <p className="form-subtitle">
+    <main className="container">
+      <section className="card">
+        <header className="header">
+          <h1 className="title">Create hypothesis project</h1>
+          <p className="subtitle">
             Set up a new hypothesis project by providing basic details.
           </p>
         </header>
 
-        <div className="form-layout">
+        <div className="form">
           <div className="form-stepper">
             {stepperItems.map((item, index) => (
               <div
