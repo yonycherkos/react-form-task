@@ -1,12 +1,13 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import FormPage from './pages/FormPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const App = () => {
   return (
     <Routes>
       <Route path="/" element={<FormPage />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="/*" element={<NotFoundPage />} />
     </Routes>
   );
 };
