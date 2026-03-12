@@ -7,7 +7,7 @@ export async function fetchPhenotypes(
   search: string,
   skip = 0,
   limit = 100,
-): Promise<{ items: Record<string, unknown>[]; total: number }> {
+): Promise<{ items: Record<string, any>[]; total: number }> {
   const { data } = await axios.get(PHENOTYPES_API, {
     headers: {
       'Content-Type': 'application/json',

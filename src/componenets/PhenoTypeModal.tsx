@@ -11,7 +11,7 @@ const PhenoTypeModal = ({
   onSelect: (phenotype: string) => void;
 }) => {
   const [search, setSearch] = useState('');
-  const [options, setOptions] = useState<Record<string, unknown>[]>([]);
+  const [options, setOptions] = useState<Record<string, any>[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -22,13 +22,13 @@ const PhenoTypeModal = ({
 
   useEffect(() => {
     if (!open) return;
+
     const timer = setTimeout(() => {
       setLoading(true);
       fetchPhenotypes(search)
-        .then((res) => {
-          const items = Array.isArray(res.items) ? res.items : [];
+        .then(({ items, total }) => {
           setOptions(items);
-          setTotal(typeof res.total === 'number' ? res.total : items.length);
+          setTotal(total);
           setSelectedId(null);
         })
         .catch((e) => {
@@ -38,15 +38,16 @@ const PhenoTypeModal = ({
         })
         .finally(() => setLoading(false));
     }, 300);
+
     return () => clearTimeout(timer);
   }, [open, search]);
 
   const handleSelect = () => {
     const opt = options.find(
-      (o) => String(o.id ?? o.label ?? o.name) === selectedId,
+      (o) => String(o?.id ?? o?.phenotype_name) === selectedId,
     );
     if (opt) {
-      const label = String(opt.label ?? opt.name ?? opt.id ?? opt ?? '');
+      const label = String(opt?.phenotype_name ?? opt?.id ?? '');
       onSelect(label);
     }
     onClose();
@@ -94,10 +95,8 @@ const PhenoTypeModal = ({
         ) : (
           <div className="modal-list-wrap">
             {options.map((opt, idx) => {
-              const optId = String(opt.id ?? opt.label ?? opt.name ?? idx);
-              const label = String(
-                opt.label ?? opt.name ?? opt.id ?? opt ?? '',
-              );
+              const optId = String(opt.id ?? opt.phenotype_name ?? idx);
+              const label = String(opt.phenotype_name ?? opt.id ?? opt ?? '');
               return (
                 <label
                   key={optId}

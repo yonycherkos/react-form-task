@@ -22,12 +22,13 @@ const GwasFileModal = ({
 
   useEffect(() => {
     if (!open) return;
+
     const timer = setTimeout(() => {
       setLoading(true);
       fetchGwasFiles(search)
-        .then(({ items, total: t }) => {
+        .then(({ items, total }) => {
           setFiles(items);
-          setTotal(t);
+          setTotal(total);
           setSelectedId(null);
         })
         .catch((e) => {
@@ -37,6 +38,7 @@ const GwasFileModal = ({
         })
         .finally(() => setLoading(false));
     }, 300);
+
     return () => clearTimeout(timer);
   }, [open, search]);
 

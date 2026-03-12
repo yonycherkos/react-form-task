@@ -19,9 +19,7 @@ const GwasFile = ({
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleSelectFromModal = (file: any) => {
-    const displayName = String(
-      file.filename ?? file.phenotype ?? file.id ?? 'Selected file',
-    );
+    const displayName = String(file.filename ?? file.id ?? 'Selected file');
     onSelectFromLibrary(displayName);
   };
 

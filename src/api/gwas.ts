@@ -7,7 +7,7 @@ export async function fetchGwasFiles(
   search: string,
   skip = 0,
   limit = 50,
-): Promise<{ items: Record<string, unknown>[]; total: number }> {
+): Promise<{ items: Record<string, any>[]; total: number }> {
   const { data } = await axios.get(GWAS_API, {
     headers: {
       'Content-Type': 'application/json',
